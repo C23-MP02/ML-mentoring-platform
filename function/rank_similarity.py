@@ -4,26 +4,29 @@ import numpy as np
 from collections import OrderedDict
 
 def rank_sim(data):
-    mentee_interest, mentor_interest, mentee_day_availability, mentor_day_availability = mentor_mentee_table(data)
+    mentee_interest, mentors_interest, mentors_rating = transform_data(data)
     similarity_rank = {}
-    cos_per_mentor = {}
-    mentee_id = list(mentee_interest['id'].unique())
-    mentor_id = list(mentor_interest['id'].unique())
-    interests = ['android', 'be', 'devops', 'flutter', 'gcp', 'ios', 'ml', 'react', 'web', 'fe']
-    interest_vars = [f"is_path_{i}" for i in interests]
-    for mentee in mentee_id:
-        interest_vec_mentee = mentee_interest.loc[mentee_interest['id']==mentee, interest_vars].values.reshape(-1,1)
-        interest_vec_mentee = np.squeeze(np.asarray(interest_vec_mentee))
-        for mentor in mentor_id:
-            interest_vec_mentor = mentor_interest.loc[mentor_interest['id']==mentor, interest_vars].values.reshape(-1,1)
-            interest_vec_mentor = np.squeeze(np.asarray(interest_vec_mentor))
-            sim = cosine_similarity(interest_vec_mentee, interest_vec_mentor)
-            if np.isnan(sim):
-                sim = 1
-            cos_per_mentor[int(mentor)] = sim
+    score_per_mentor = {}
+    mentee_id = mentee_interest['id']
+    mentors_id = list(mentors_interest['id'].unique())
+    interest_vars = ['is_path_android', 'is_path_web', 'is_path_ios', 'is_path_ml', 'is_path_flutter',
+                'is_path_fe', 'is_path_be', 'is_path_react', 'is_path_devops', 'is_path_gcp']
+    
+    interest_vec_mentee = mentee_interest.loc[mentee_interest['id']==mentee_id, interest_vars].values.reshape(-1,1)
+    interest_vec_mentee = np.squeeze(np.asarray(interest_vec_mentee))
+    interest_vec_mentee = [int(element) for element in interest_vec_mentee]
+    for mentor in mentors_id:
+        interest_vec_mentor = mentors_interest.loc[mentors_interest['id']==mentor, interest_vars].values.reshape(-1,1)
+        interest_vec_mentor = np.squeeze(np.asarray(interest_vec_mentor))
+        interest_vec_mentor = [int(element) for element in interest_vec_mentor]
+        sim = cosine_similarity(interest_vec_mentee, interest_vec_mentor)
+        if np.isnan(sim):
+            sim = 1
+        normalized_rating = mentors_rating.loc[mentors_rating['id']==mentor, "average_rating"].values[0] / 5
+        score = 0.6 * sim + 0.4 * normalized_rating
+        score_per_mentor[int(mentor)] = score
 
-        similarity_rank[int(mentee)] = cos_per_mentor
-        cos_per_mentor = {}
+    similarity_rank[int(mentors_id[0])] = score_per_mentor
 
     # sorted similarity dictionary
     ranked_similarity_rank = {}
@@ -38,4 +41,3 @@ def rank_sim(data):
         ranked_sim_rank[dict_keys] = list_mentors
 
     return ranked_sim_rank
-    # return similarity_rank_hash
