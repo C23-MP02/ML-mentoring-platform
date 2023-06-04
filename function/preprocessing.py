@@ -48,3 +48,9 @@ def cosine_similarity(mentee, mentor):
     vec2 = mentor
     cosine = np.dot(vec1,vec2)/((np.dot(vec1,vec1)*np.dot(vec2,vec2))**0.5) 
     return cosine
+
+def modified_cosine_similarity(mentee, mentor):
+    vec1 = mentee
+    vec2 = mentor
+    cosine = (np.dot(vec1,vec2)/((np.dot(vec1,vec1))**0.5)*(np.dot(vec2,vec2))**(1/3))/(((10)**(1/2))*((10)**(1/3))) 
+    return cosine

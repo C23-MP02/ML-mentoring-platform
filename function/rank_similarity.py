@@ -19,10 +19,16 @@ def rank_sim(data):
         interest_vec_mentor = mentors_interest.loc[mentors_interest['id']==mentor, interest_vars].values.reshape(-1,1)
         interest_vec_mentor = np.squeeze(np.asarray(interest_vec_mentor))
         interest_vec_mentor = [int(element) for element in interest_vec_mentor]
-        sim = cosine_similarity(interest_vec_mentee, interest_vec_mentor)
+        sim = modified_cosine_similarity(interest_vec_mentee, interest_vec_mentor)
         if np.isnan(sim):
-            sim = 1
-        normalized_rating = mentors_rating.loc[mentors_rating['id']==mentor, "average_rating"].values[0] / 5
+            sim = 0
+        rating = mentors_rating.loc[mentors_rating['id']==mentor, "average_rating"].values[0]
+        if rating is None:
+            rating = 0
+        else:
+            if np.isnan(rating):
+                rating = 0
+        normalized_rating = rating / 5
         score = 0.6 * sim + 0.4 * normalized_rating
         score_per_mentor[str(mentor)] = score
 
@@ -41,3 +47,4 @@ def rank_sim(data):
         ranked_sim_rank[dict_keys] = list_mentors
 
     return ranked_sim_rank
+    # return ranked_similarity_rank, ranked_sim_rank
