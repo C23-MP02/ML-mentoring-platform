@@ -24,9 +24,9 @@ def rank_sim(data):
             sim = 1
         normalized_rating = mentors_rating.loc[mentors_rating['id']==mentor, "average_rating"].values[0] / 5
         score = 0.6 * sim + 0.4 * normalized_rating
-        score_per_mentor[int(mentor)] = score
+        score_per_mentor[str(mentor)] = score
 
-    similarity_rank[int(mentors_id[0])] = score_per_mentor
+    similarity_rank[str(mentee_id[0])] = score_per_mentor
 
     # sorted similarity dictionary
     ranked_similarity_rank = {}

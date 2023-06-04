@@ -1,14 +1,7 @@
 {
   "mentee": {
     "id": 11,
-    "name": "Michael Myers",
-    "role_id": 3,
     "gender_id": 2,
-    "email": "michael@gmail.com",
-    "address": null,
-    "phone": null,
-    "bio": null,
-    "profile_picture_url": null,
     "is_path_android": true,
     "is_path_web": false,
     "is_path_ios": true,
@@ -25,27 +18,16 @@
     "is_thursday_available": false,
     "is_friday_available": true,
     "is_saturday_available": false,
-    "is_sunday_available": false,
-    "created_at": "2023-05-15T14:54:00.311Z",
-    "updated_at": "2023-05-27T14:42:28.905Z"
+    "is_sunday_available": false
   },
   "mentors": [
     {
       "user_id": 14,
       "average_rating": 4.228571428571429,
       "rating_count": 7,
-      "created_at": "2023-05-18T11:36:15.000Z",
-      "updated_at": "2023-05-27T13:59:15.174Z",
       "User": {
         "id": 14,
-        "name": "Mentor01",
-        "role_id": 2,
         "gender_id": 1,
-        "email": "mentor01@gmail.com",
-        "address": null,
-        "phone": null,
-        "bio": null,
-        "profile_picture_url": "https://storage.googleapis.com/dicoding-mp/2e879f6e-696f-4096-9ad4-c7c3e64c43f9_anya-gangsta.png",
         "is_path_android": false,
         "is_path_web": false,
         "is_path_ios": false,
@@ -62,27 +44,16 @@
         "is_thursday_available": false,
         "is_friday_available": true,
         "is_saturday_available": false,
-        "is_sunday_available": false,
-        "created_at": "2023-05-18T10:01:22.196Z",
-        "updated_at": "2023-05-23T18:35:20.207Z"
+        "is_sunday_available": false
       }
     },
     {
       "user_id": 17,
       "average_rating": 3.5,
       "rating_count": 1,
-      "created_at": "2023-05-18T11:29:19.530Z",
-      "updated_at": "2023-05-27T14:22:13.811Z",
       "User": {
         "id": 17,
-        "name": "Gojo Satoru",
-        "role_id": 2,
         "gender_id": 1,
-        "email": "mentor02@gmail.com",
-        "address": null,
-        "phone": null,
-        "bio": "Lorem ipsum",
-        "profile_picture_url": "https://storage.googleapis.com/dicoding-mp/1f7165a3-dce3-4c27-8496-295cc515b12f_luffy.jpg",
         "is_path_android": true,
         "is_path_web": false,
         "is_path_ios": true,
@@ -99,27 +70,16 @@
         "is_thursday_available": false,
         "is_friday_available": false,
         "is_saturday_available": false,
-        "is_sunday_available": false,
-        "created_at": "2023-05-18T11:29:16.083Z",
-        "updated_at": "2023-05-27T14:20:28.228Z"
+        "is_sunday_available": false
       }
     },
     {
       "user_id": 20,
       "average_rating": 3.85643,
       "rating_count": 7,
-      "created_at": "2023-05-18T11:36:15.000Z",
-      "updated_at": "2023-05-27T13:59:15.174Z",
       "User": {
         "id": 20,
-        "name": "Ryomen Sukuna",
-        "role_id": 2,
         "gender_id": 1,
-        "email": "mentor69@gmail.com",
-        "address": null,
-        "phone": null,
-        "bio": null,
-        "profile_picture_url": "https://storage.googleapis.com/dicoding-mp/2e879f6e-696f-4096-9ad4-c7c3e64c43f9_anya-gangsta.png",
         "is_path_android": false,
         "is_path_web": false,
         "is_path_ios": true,
@@ -136,27 +96,16 @@
         "is_thursday_available": false,
         "is_friday_available": true,
         "is_saturday_available": false,
-        "is_sunday_available": false,
-        "created_at": "2023-05-18T11:09:22.196Z",
-        "updated_at": "2023-05-23T20:35:20.207Z"
+        "is_sunday_available": false
       }
     },
     {
       "user_id": 25,
       "average_rating": 3.92843,
       "rating_count": 11,
-      "created_at": "2023-05-18T11:36:15.000Z",
-      "updated_at": "2023-05-27T13:59:15.174Z",
       "User": {
         "id": 25,
-        "name": "Yuuji",
-        "role_id": 2,
         "gender_id": 1,
-        "email": "mentor99@gmail.com",
-        "address": null,
-        "phone": null,
-        "bio": null,
-        "profile_picture_url": "https://storage.googleapis.com/dicoding-mp/2e879f6e-696f-4096-9ad4-c7c3e64c43f9_anya-gangsta.png",
         "is_path_android": false,
         "is_path_web": false,
         "is_path_ios": true,
@@ -173,9 +122,7 @@
         "is_thursday_available": false,
         "is_friday_available": true,
         "is_saturday_available": false,
-        "is_sunday_available": false,
-        "created_at": "2023-05-18T10:01:22.196Z",
-        "updated_at": "2023-05-23T18:35:20.207Z"
+        "is_sunday_available": false
       }
     }
   ]
