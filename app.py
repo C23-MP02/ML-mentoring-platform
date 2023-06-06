@@ -1,5 +1,6 @@
 from function.rank_similarity import rank_sim
 from function.nlp_problem import *
+from function.summarizer import *
 from flask import Flask, request, json, jsonify
 import pandas as pd
 
@@ -57,6 +58,12 @@ def translated_sentiment():
             count +=1
     
     return jsonify(json_)
+
+@app.route("/feedback_summarizer",methods=['POST'])
+def summarize_text():
+    json_ = request.json
+    summarized_texts = inference_all_data(json_)
+    return jsonify(summarized_texts)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
