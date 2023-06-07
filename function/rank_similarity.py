@@ -8,6 +8,7 @@ def rank_sim(data):
     similarity_rank = {}
     score_per_mentor = {}
     mentee_id = mentee_interest['id']
+    mentee_gender = mentee_interest['gender_id'][0]
     mentors_id = list(mentors_interest['id'].unique())
     interest_vars = ['is_path_android', 'is_path_web', 'is_path_ios', 'is_path_ml', 'is_path_flutter',
                 'is_path_fe', 'is_path_be', 'is_path_react', 'is_path_devops', 'is_path_gcp']
@@ -19,6 +20,8 @@ def rank_sim(data):
         interest_vec_mentor = mentors_interest.loc[mentors_interest['id']==mentor, interest_vars].values.reshape(-1,1)
         interest_vec_mentor = np.squeeze(np.asarray(interest_vec_mentor))
         interest_vec_mentor = [int(element) for element in interest_vec_mentor]
+        mentor_gender = mentors_interest.loc[mentors_interest['id']==mentor, "gender_id"].values[0]
+
         sim = modified_cosine_similarity(interest_vec_mentee, interest_vec_mentor)
         if np.isnan(sim):
             sim = 0
@@ -29,7 +32,13 @@ def rank_sim(data):
             if np.isnan(rating):
                 rating = 0
         normalized_rating = rating / 5
-        score = 0.6 * sim + 0.4 * normalized_rating
+
+        gender_weight = 0
+        if mentee_gender == 2:
+            if mentee_gender == mentor_gender:
+                gender_weight = 0.1
+
+        score = 0.55 * sim + 0.35 * normalized_rating + gender_weight
         score_per_mentor[str(mentor)] = score
 
     similarity_rank[str(mentee_id[0])] = score_per_mentor
