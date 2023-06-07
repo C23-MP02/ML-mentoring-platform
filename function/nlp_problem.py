@@ -6,17 +6,18 @@ from googletrans import Translator
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification, DistilBertTokenizerFast, TFDistilBertForSequenceClassification
 from scipy.special import softmax
+import torch
 
-MODEL = f"cardiffnlp/roberta-base-sentiment"
-tokenizer = AutoTokenizer.from_pretrained(MODEL)
-model = AutoModelForSequenceClassification.from_pretrained(MODEL)
+
 # tokenizer = DistilBertTokenizerFast.from_pretrained(MODEL)
 # model = TFDistilBertForSequenceClassification.from_pretrained(MODEL)
 
 ## Function polarity scores
 def polarity_scores_roberta(data):
     ### Loading Pre-trained roberta model
-    
+    MODEL = f"cardiffnlp/roberta-base-sentiment"
+    tokenizer = AutoTokenizer.from_pretrained(MODEL)
+    model = AutoModelForSequenceClassification.from_pretrained(MODEL)
     encoded_text = tokenizer(data, return_tensors='pt')
     output = model(**encoded_text)
     scores = output[0][0].detach().numpy()
@@ -32,6 +33,18 @@ def polarity_scores_roberta(data):
     sentiment = {'Status':max_value,
                  'Value':value}
     return scores_dict , sentiment
+
+def binary_score_abil_dicoding(text):
+    id2label = {0: "NEGATIVE", 1: "POSITIVE"}
+    label2id = {"NEGATIVE": 0, "POSITIVE": 1}
+    MODEL = f"abilfad/sentiment-binary-dicoding"
+    tokenizer = AutoTokenizer.from_pretrained(MODEL)
+    inputs = tokenizer(text, return_tensors="pt")
+    model = AutoModelForSequenceClassification.from_pretrained("stevhliu/my_awesome_model",id2label=id2label, label2id=label2id)
+    with torch.no_grad():
+        logits = model(**inputs).logits
+    predicted_class_id = logits.argmax().item()
+    return str(model.config.id2label[predicted_class_id]).lower()
 
 def read_data(data='../sentiment-analysis/sample.json'):
     data = data
@@ -67,9 +80,22 @@ def to_translate(data,dest='en'):
         data_set['lang_output']= lang_output
 
         data_pd = pd.DataFrame(data_set)
-        return data_pd    
+        return data_pd
+        
 
 if __name__=="__main__":
-    pass
+    id2label = {0: "NEGATIVE", 1: "POSITIVE"}
+    label2id = {"NEGATIVE": 0, "POSITIVE": 1}
+    MODEL = f"abilfad/sentiment-binary-dicoding"
+    text = "This was a masterpiece. Not completely faithful to the books, but enthralling from beginning to end. Might be my favorite of the three."
+    tokenizer = AutoTokenizer.from_pretrained(MODEL)
+    inputs = tokenizer(text, return_tensors="pt")
+
+    model = AutoModelForSequenceClassification.from_pretrained("stevhliu/my_awesome_model",id2label=id2label, label2id=label2id)
+    with torch.no_grad():
+        logits = model(**inputs).logits
+    predicted_class_id = logits.argmax().item()
+    print(str(model.config.id2label[predicted_class_id]).lower())
+    
 
    
