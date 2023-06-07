@@ -53,8 +53,8 @@ def translated_sentiment():
     for i in json_:
         if 'feedback' in json_[count]:
             temp = json_[count]
-            a = polarity_scores_roberta(temp['translate'])[1]
-            temp['sentiment'] = a['Status']
+            a = binary_score_abil_dicoding(temp['translate'])#[1]
+            temp['sentiment'] = a
             count +=1
     
     return jsonify(json_)
