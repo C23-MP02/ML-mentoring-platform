@@ -22,10 +22,15 @@ virtualenv [enviroment name]
 .\[enviroment name]\Scripts\activate
 pip install -r requirements.txt
 
-
-MODEL : 
+```
+## MODEL 
+```
 https://huggingface.co/abilfad/sentiment-binary-dicoding (TF HF model for sentiment) but stevenliu models are used here because my computer couldn't load tf model 
-and also colab's compute units are run out. Actually my model perform better than his, at 93 compared to his in 92
+and also colab's compute units are run out.
 https://huggingface.com/Pudja2001/my_topic_summarizer_model (PyTorch model for summarizer)
-Because of l
-
+ 
+```
+Link to our notebook for working on ML models : 
+ Sentiment  : https://drive.google.com/drive/folders/195zEGBbsQ3AxD7VqbSBLGb9-A9PuVSdL?usp=drive_link
+ Summarizer : https://drive.google.com/drive/folders/1gYlGgFMioDhJ1XpNMabpAHrXDr-Cj3Ef?usp=drive_link
+```
