@@ -9,11 +9,19 @@ steps:
     args:
       - "push"
       - "gcr.io/dicoding-mp/mentoring-platform-ml-api"
-  - name: "gcr.io/cloud-builders/gcloud"
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
     args:
       - "run"
       - "deploy"
+      - "mentoring-platform-ml-api"
       - "--image"
       - "gcr.io/dicoding-mp/mentoring-platform-ml-api"
+      - "--platform"
+      - "managed"
+      - "--region"
+      - "asia-southeast2"
+      - "--project"
+      - "dicoding-mp"
 options:
   logging: CLOUD_LOGGING_ONLY
