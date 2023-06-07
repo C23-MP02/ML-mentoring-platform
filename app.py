@@ -27,37 +27,38 @@ def translate():
         count +=1
     return jsonify(json_)
 
-@app.route("/sentiment",methods=['POST'])
-def sentiment():
-    json_      = request.json
-    count = 0
-    for i in json_:
-        if 'feedback' in json_[count]:
-            temp = json_[count]
-            a = polarity_scores_roberta(temp['feedback'])[1]
-            temp['sentiment'] = a['Status']
-            count +=1
-    return jsonify(json_)
+# @app.route("/sentiment",methods=['POST'])
+# def sentiment():
+#     json_      = request.json
+#     count = 0
+#     for i in json_:
+#         if 'feedback' in json_[count]:
+#             temp = json_[count]
+#             a = polarity_scores_roberta(temp['feedback'])[1]
+#             temp['sentiment'] = a['Status']
+#             count +=1
+#     return jsonify(json_)
 
 @app.route("/translated-sentiment",methods=['POST'])
 def translated_sentiment():
-    json_      = request.json
-    count = 0
-    for i in json_:
-        temp = json_[count]
-        if 'feedback' in temp:
-            temp['translate'] = to_translate(dest='en',data=temp['feedback'])
-        count +=1
-    
-    count = 0
-    for i in json_:
-        if 'feedback' in json_[count]:
-            temp = json_[count]
-            a = binary_score_abil_dicoding(temp['translate'])#[1]
-            temp['sentiment'] = a
-            count +=1
+    json_ = request.json
+    for item in json_:
+        if 'feedback' in item:
+            item['translate'] = to_translate(dest='en',data=item['feedback'])
+            item['sentiment'] = binary_score_abil_dicoding(item['translate'])
     
     return jsonify(json_)
+
+@app.route("/translate-en-id",methods=['POST'])
+def translated_sentiment():
+    json_ = request.json
+    for item in json_:
+        if 'feedback' in item:
+            item['translate'] = to_translate(dest='id',data=item['feedback'])
+            item['sentiment'] = binary_score_abil_dicoding(item['translate'])
+    
+    return jsonify(json_)
+
 
 @app.route("/feedback_summarizer",methods=['POST'])
 def summarize_text():
