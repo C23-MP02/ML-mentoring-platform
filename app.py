@@ -50,12 +50,11 @@ def translated_sentiment():
     return jsonify(json_)
 
 @app.route("/translate-en-id",methods=['POST'])
-def translated_sentiment():
+def translated_sentiment_en_id():
     json_ = request.json
     for item in json_:
         if 'feedback' in item:
             item['translate'] = to_translate(dest='id',data=item['feedback'])
-            item['sentiment'] = binary_score_abil_dicoding(item['translate'])
     
     return jsonify(json_)
 
