@@ -1,7 +1,4 @@
 from transformers import pipeline, AutoModel, AutoTokenizer, TFAutoModelForSeq2SeqLM, AutoModelForSeq2SeqLM, DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
-import tensorflow
-#import numpy as np
-#import evaluate
 
 MODEL_DIR = "Pudja2001/my_topic_summarizer_model"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
@@ -82,17 +79,24 @@ model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_DIR)
 
 def inference_model(text):
     inputs = tokenizer(text, return_tensors="pt").input_ids
-    outputs = model.generate(inputs, do_sample=False, min_length=3, max_length=100)
+    outputs = model.generate(inputs, do_sample=False, min_length=3, max_length=200)
     text_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return text_output
 
 def inference_all_data(data):
     feedback = data["feedback"]
+    texts = "summarize: "
+    for els in feedback:
+        texts = texts + str(els) + ". "
     summarized_texts = {}
 
-    feedbacks = ["summarize: " + strings for strings in feedback]
-    text_outputs = list(map(inference_model, feedbacks))
-    summarized_texts["feedback"] = text_outputs
+    # feedbacks = ["summarize: " + strings for strings in feedback]
+    # text_outputs = list(map(inference_model, feedbacks))
+    # summarized_texts["feedback"] = text_outputs
+
+    summarized_text = inference_model(texts)
+    summarized_text = [summarized_text]
+    summarized_texts["feedback"] = summarized_text
 
     return summarized_texts
 

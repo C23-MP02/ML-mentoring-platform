@@ -1,5 +1,5 @@
 from function.rank_similarity import rank_sim
-from function.nlp_problem import *
+# from function.nlp_problem import *
 from function.summarizer import *
 from flask import Flask, request, json, jsonify
 import pandas as pd
