@@ -4,14 +4,14 @@ import json
 from googletrans import Translator 
 
 from transformers import AutoTokenizer
-from transformers import AutoModelForSequenceClassification
+from transformers import AutoModelForSequenceClassification, DistilBertTokenizerFast, TFDistilBertForSequenceClassification
 from scipy.special import softmax
 
-MODEL = f"cardiffnlp/-roberta-base-sentiment"
+MODEL = f"cardiffnlp/roberta-base-sentiment"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL)
-tokenizer = DistilBertTokenizerFast.from_pretrained(MODEL)
-model = TFDistilBertForSequenceClassification.from_pretrained(MODEL)
+# tokenizer = DistilBertTokenizerFast.from_pretrained(MODEL)
+# model = TFDistilBertForSequenceClassification.from_pretrained(MODEL)
 
 ## Function polarity scores
 def polarity_scores_roberta(data):
