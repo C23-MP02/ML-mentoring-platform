@@ -65,5 +65,13 @@ def summarize_text():
     summarized_texts = inference_all_data(json_)
     return jsonify(summarized_texts)
 
+@app.route("/feedback_summarizer_id",methods=['POST'])
+def summarize_text_id():
+    json_ = request.json
+    summarized_texts = inference_all_data(json_)
+    id_summarized = to_translate(dest='id',data=summarized_texts["feedback"])
+    return jsonify(id_summarized)
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
