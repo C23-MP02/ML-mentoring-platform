@@ -15,3 +15,5 @@ steps:
       - "deploy"
       - "--image"
       - "gcr.io/dicoding-mp/mentoring-platform-ml-api"
+options:
+  logging: CLOUD_LOGGING_ONLY
