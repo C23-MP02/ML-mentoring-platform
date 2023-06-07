@@ -27,17 +27,6 @@ def translate():
         count +=1
     return jsonify(json_)
 
-# @app.route("/sentiment",methods=['POST'])
-# def sentiment():
-#     json_      = request.json
-#     count = 0
-#     for i in json_:
-#         if 'feedback' in json_[count]:
-#             temp = json_[count]
-#             a = polarity_scores_roberta(temp['feedback'])[1]
-#             temp['sentiment'] = a['Status']
-#             count +=1
-#     return jsonify(json_)
 
 @app.route("/translated-sentiment",methods=['POST'])
 def translated_sentiment():
@@ -69,8 +58,27 @@ def summarize_text():
 def summarize_text_id():
     json_ = request.json
     summarized_texts = inference_all_data(json_)
-    id_summarized = to_translate(dest='id',data=summarized_texts["feedback"])
+    feedback_list = summarized_texts["feedback"]
+    if len(feedback_list) > 0:  # check that there's at least one item in the list
+        feedback_text = feedback_list[0]  # get the first item
+        feedback_dict = {'feedback': feedback_text}  # create a dictionary
+        id_summarized = to_translate(dest='id', data=[feedback_dict])  # note the list around feedback_dict
+    else:
+        id_summarized = {'error': 'No feedback to translate'}
     return jsonify(id_summarized)
+
+
+# @app.route("/sentiment",methods=['POST'])
+# def sentiment():
+#     json_      = request.json
+#     count = 0
+#     for i in json_:
+#         if 'feedback' in json_[count]:
+#             temp = json_[count]
+#             a = polarity_scores_roberta(temp['feedback'])[1]
+#             temp['sentiment'] = a['Status']
+#             count +=1
+#     return jsonify(json_)
 
 
 if __name__ == '__main__':
