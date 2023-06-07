@@ -31,6 +31,6 @@ https://huggingface.com/Pudja2001/my_topic_summarizer_model (PyTorch model for s
  
 ```
 Link to our notebook for working on ML models : 
- Sentiment  : https://drive.google.com/drive/folders/195zEGBbsQ3AxD7VqbSBLGb9-A9PuVSdL?usp=drive_link
- Summarizer : https://drive.google.com/drive/folders/1gYlGgFMioDhJ1XpNMabpAHrXDr-Cj3Ef?usp=drive_link
+ - Sentiment  : https://drive.google.com/drive/folders/195zEGBbsQ3AxD7VqbSBLGb9-A9PuVSdL?usp=drive_link
+ - Summarizer : https://drive.google.com/drive/folders/1gYlGgFMioDhJ1XpNMabpAHrXDr-Cj3Ef?usp=drive_link
 ```
