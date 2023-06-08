@@ -49,7 +49,7 @@ def binary_score_abil_dicoding(text):
     
     ### TORCH MODEL ####
     MODEL_TORCH = f"stevhliu/my_awesome_model"
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL_TORCH,id2label=id2label, label2id=label2id)
+    model = AutoModelForSequenceClassification.from_pretrained(MODEL_TORCH)
     with torch.no_grad():
         logits = model(**inputs).logits
     predicted_class_id = logits.argmax().item()
