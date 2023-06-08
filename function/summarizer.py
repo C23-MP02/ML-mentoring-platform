@@ -1,6 +1,6 @@
 from transformers import pipeline, AutoModel, AutoTokenizer, TFAutoModelForSeq2SeqLM, AutoModelForSeq2SeqLM, DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
 
-MODEL_DIR = "summarizer_model"
+MODEL_DIR = "Pudja2001/my_topic_summarizer_model"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
 model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_DIR)
 
