@@ -39,9 +39,14 @@ def binary_score_abil_dicoding(text):
     id2label = {0: "NEGATIVE", 1: "POSITIVE"}
     label2id = {"NEGATIVE": 0, "POSITIVE": 1}
     MODEL = f"abilfad/sentiment-binary-dicoding"
-    tokenizer = AutoTokenizer.from_pretrained("abilfad/sentiment-binary-dicoding")
+    tokenizer = AutoTokenizer.from_pretrained(MODEL)
     inputs = tokenizer(text, return_tensors="tf")
-    model = TFAutoModelForSequenceClassification.from_pretrained("abilfad/sentiment-binary-dicoding")
+    # model = AutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id)
+    # with torch.no_grad():
+    #     logits = model(**inputs).logits
+    # predicted_class_id = logits.argmax().item()
+    #### TF MODEL ####
+    model = TFAutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id)
     logits = model(**inputs).logits
     predicted_class_id = int(tf.math.argmax(logits, axis=-1)[0])
     
@@ -108,7 +113,7 @@ if __name__=="__main__":
     # tokenizer = AutoTokenizer.from_pretrained(MODEL)
     # inputs = tokenizer(text, return_tensors="pt")
 
-    # model = AutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id,from_tf=True)
+    # model = AutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id)
     # with torch.no_grad():
     #     logits = model(**inputs).logits
     # predicted_class_id = logits.argmax().item()
