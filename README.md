@@ -25,8 +25,7 @@ pip install -r requirements.txt
 ```
 ## MODEL 
 ```
-https://huggingface.co/abilfad/sentiment-binary-dicoding (TF HF model for sentiment) but stevenliu models are used here because my computer couldn't load tf model 
-and also colab's compute units are run out.
+https://huggingface.co/abilfad/sentiment-binary-dicoding 
 https://huggingface.com/Pudja2001/my_topic_summarizer_model (PyTorch model for summarizer)
  
 ```
