@@ -39,9 +39,9 @@ def binary_score_abil_dicoding(text):
     id2label = {0: "NEGATIVE", 1: "POSITIVE"}
     label2id = {"NEGATIVE": 0, "POSITIVE": 1}
     MODEL = f"abilfad/sentiment-binary-dicoding"
-    tokenizer = AutoTokenizer.from_pretrained(MODEL)
-    inputs = tokenizer(text, return_tensors="pt")
-    model = TFAutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id,from_tf=True)
+    tokenizer = AutoTokenizer.from_pretrained("abilfad/sentiment-binary-dicoding")
+    inputs = tokenizer(text, return_tensors="tf")
+    model = TFAutoModelForSequenceClassification.from_pretrained("abilfad/sentiment-binary-dicoding")
     logits = model(**inputs).logits
     predicted_class_id = int(tf.math.argmax(logits, axis=-1)[0])
     
