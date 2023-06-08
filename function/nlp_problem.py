@@ -50,7 +50,7 @@ def binary_score_abil_dicoding(text):
     ### TORCH MODEL ####
     MODEL_TORCH = f"stevhliu/my_awesome_model"
     tokenizer = AutoTokenizer.from_pretrained(MODEL_TORCH)
-    inputs = tokenizer(text, return_tensors="tf")
+    inputs = tokenizer(text, return_tensors="pt")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_TORCH, id2label=id2label, label2id=label2id)
     with torch.no_grad():
         logits = model(**inputs).logits
