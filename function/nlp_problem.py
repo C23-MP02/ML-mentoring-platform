@@ -6,6 +6,7 @@ from googletrans import Translator
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification, DistilBertTokenizerFast, TFDistilBertForSequenceClassification
 from scipy.special import softmax
+import tensorflow as tf
 import torch
 
 
@@ -41,9 +42,11 @@ def binary_score_abil_dicoding(text):
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
     inputs = tokenizer(text, return_tensors="pt")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id,from_tf=True)
-    with torch.no_grad():
-        logits = model(**inputs).logits
-    predicted_class_id = logits.argmax().item()
+    from transformers import TFAutoModelForSequenceClassification
+    model = TFAutoModelForSequenceClassification.from_pretrained(MODEL)
+    logits = model(**inputs).logits
+    predicted_class_id = int(tf.math.argmax(logits, axis=-1)[0])
+    
     return str(model.config.id2label[predicted_class_id]).lower()
 
 # def read_data(data='../sentiment-analysis/sample.json'):
@@ -99,18 +102,18 @@ def to_translate(data, dest='en'):
    
 
 if __name__=="__main__":
-    id2label = {0: "NEGATIVE", 1: "POSITIVE"}
-    label2id = {"NEGATIVE": 0, "POSITIVE": 1}
-    MODEL = f"abilfad/sentiment-binary-dicoding"
-    text = "This was a masterpiece. Not completely faithful to the books, but enthralling from beginning to end. Might be my favorite of the three."
-    tokenizer = AutoTokenizer.from_pretrained(MODEL)
-    inputs = tokenizer(text, return_tensors="pt")
+    # id2label = {0: "NEGATIVE", 1: "POSITIVE"}
+    # label2id = {"NEGATIVE": 0, "POSITIVE": 1}
+    # MODEL = f"abilfad/sentiment-binary-dicoding"
+    # text = "This was a masterpiece. Not completely faithful to the books, but enthralling from beginning to end. Might be my favorite of the three."
+    # tokenizer = AutoTokenizer.from_pretrained(MODEL)
+    # inputs = tokenizer(text, return_tensors="pt")
 
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id,from_tf=True)
-    with torch.no_grad():
-        logits = model(**inputs).logits
-    predicted_class_id = logits.argmax().item()
-    print(str(model.config.id2label[predicted_class_id]).lower())
+    # model = AutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id,from_tf=True)
+    # with torch.no_grad():
+    #     logits = model(**inputs).logits
+    # predicted_class_id = logits.argmax().item()
+    # print(str(model.config.id2label[predicted_class_id]).lower())
     
 
    
