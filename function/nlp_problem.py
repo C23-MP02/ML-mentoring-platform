@@ -102,6 +102,7 @@ def to_translate(data, dest='en'):
    
 
 if __name__=="__main__":
+    pass
     # id2label = {0: "NEGATIVE", 1: "POSITIVE"}
     # label2id = {"NEGATIVE": 0, "POSITIVE": 1}
     # MODEL = f"abilfad/sentiment-binary-dicoding"
