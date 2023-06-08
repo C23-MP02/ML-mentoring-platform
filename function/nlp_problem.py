@@ -41,7 +41,7 @@ def binary_score_abil_dicoding(text):
     
     MODEL = f"abilfad/sentiment-binary-dicoding"
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
-    inputs = tokenizer(text, return_tensors="tf")
+    inputs = tokenizer(text, return_tensors="pt") # pt for pytorch | tf for tensorflow
     #### TF MODEL ####
     # model = TFAutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id)
     # logits = model(**inputs).logits
