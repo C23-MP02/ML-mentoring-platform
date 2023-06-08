@@ -42,8 +42,6 @@ def binary_score_abil_dicoding(text):
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
     inputs = tokenizer(text, return_tensors="pt")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id,from_tf=True)
-    from transformers import TFAutoModelForSequenceClassification
-    model = TFAutoModelForSequenceClassification.from_pretrained(MODEL)
     logits = model(**inputs).logits
     predicted_class_id = int(tf.math.argmax(logits, axis=-1)[0])
     
