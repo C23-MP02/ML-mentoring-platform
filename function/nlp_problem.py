@@ -4,7 +4,7 @@ import json
 from googletrans import Translator 
 
 from transformers import AutoTokenizer
-from transformers import AutoModelForSequenceClassification, DistilBertTokenizerFast, TFDistilBertForSequenceClassification
+from transformers import AutoModelForSequenceClassification,TFAutoModelForSequenceClassification
 from scipy.special import softmax
 import tensorflow as tf
 import torch
@@ -41,7 +41,7 @@ def binary_score_abil_dicoding(text):
     MODEL = f"abilfad/sentiment-binary-dicoding"
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
     inputs = tokenizer(text, return_tensors="pt")
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id,from_tf=True)
+    model = TFAutoModelForSequenceClassification.from_pretrained(MODEL,id2label=id2label, label2id=label2id,from_tf=True)
     logits = model(**inputs).logits
     predicted_class_id = int(tf.math.argmax(logits, axis=-1)[0])
     
